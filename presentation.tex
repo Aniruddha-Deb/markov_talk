@@ -1,9 +1,13 @@
 \documentclass{beamer}
-\usetheme{Boadilla}
-\usepackage{xcolor} \usepackage{caption}
+\usepackage{xcolor} 
+\usepackage{caption}
+\usepackage{amsmath}
 \usepackage{tikz}
+\usepackage{multicol}
+\usepackage{tikz-cd}
 \usepackage{hyperref}
 
+\usetheme{Boadilla}
 \title{Insert Markov pun here}
 \subtitle{A talk on Probabilistic Automata and Markov Chains}
 \author{Aniruddha Deb}
@@ -19,12 +23,93 @@
 \end{frame}
 
 \begin{frame}
+\frametitle{Stochastic vectors and stochastic matrices}
+\pause
+A \textbf{Stochastic Vector} $\mathcal{S}$ is a vector in $\mathbb{R}^n$ which satisfies the 
+following conditions:
+\begin{itemize}
+	\item if $s \in \mathcal{S}$, then $0 < s < 1$
+	\item the sum of all the elements of $\mathcal{S}$ is 1
+\end{itemize}
+\vspace{2em}
+\pause
+A \textbf{Stochastic Matrix} (aka Markov matrix) is a matrix whose column vectors
+are stochastic vectors. \\
+\vspace{2em}
+\pause
+Stochastic vectors can be thought of as a form of \textbf{discrete probability distribution}: 
+given a finite number of possible states, $\mathcal{S}$ gives the probability 
+of transitioning to the $i$th state.
+\end{frame}
+
+\begin{frame}
 \frametitle{A short recap of NFA's}
 
 \begin{center}
 \includegraphics[scale=0.16]{img/recap.png}
 \end{center}
 
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Probabilistic Automata}
+A \textbf{Probabilistic Automata} (PA) generalizes the concept of a NFA, so that
+the transition probabilities are given by the transition function (the transition
+function for such an automata is a stochastic matrix / markov matrix)
+\pause
+\begin{center}
+\begin{tikzcd}
+                                                                                       & B \arrow[rd, "0.5" description] \arrow[ld, "0.5" description, bend right, shift right] &                                                                                                                                                       \\
+A \arrow[ru, "0.6" description] \arrow[rr, "0.4" description, bend right, shift right] &                                                                                        & C \arrow[ll, "0.5" description] \arrow[lu, "0.1" description, bend right, shift right] \arrow["0.4" description, loop, distance=2em, in=315, out=45]
+\end{tikzcd}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modeling PA's: Markov Processes}
+
+PA's lend themselves to being modeled by markov matrices very well. As an example,
+the process in the previous slide can be modeled as follows:
+
+\pause 
+\begin{center}
+\begin{columns}[onlytextwidth]
+\begin{column}{0.3\textwidth}
+\begin{tikzcd}
+                                                                                       & B \arrow[rd, "0.5" description] \arrow[ld, "0.5" description, bend right, shift right] &                                                                                                                                                       \\
+A \arrow[ru, "0.6" description] \arrow[rr, "0.4" description, bend right, shift right] &                                                                                        & C \arrow[ll, "0.5" description] \arrow[lu, "0.1" description, bend right, shift right] \arrow["0.4" description, loop, distance=2em, in=315, out=45]
+\end{tikzcd}	
+\end{column}
+\begin{column}{0.7\textwidth}
+$$
+\mathcal{S}_A = \begin{bmatrix} 0 \\ 0.6 \\ 0.4 \end{bmatrix}
+\mathcal{S}_B = \begin{bmatrix} 0.5 \\ 0 \\ 0.5 \end{bmatrix}
+\mathcal{S}_C = \begin{bmatrix} 0.5 \\ 0.1 \\ 0.4 \end{bmatrix}$$
+$$
+\mathcal{S} = \begin{bmatrix}
+0 & 0.5 & 0.5 \\
+0.6 & 0 & 0.1 \\
+0.4 & 0.5 & 0.4
+\end{bmatrix}
+$$
+\end{column}
+\end{columns}
+\end{center}
+\pause
+Now, given an initial state $a$, $\mathcal{S}a$ would give the final state after
+one transition. By induction, $\mathcal{S}^n a$ would give the final state after
+$n$ transitions.
+\end{frame}
+
+\begin{frame}[t]\frametitle{More on Markov Matrices}
+% prove that markov matrix x stochastic vector = stochastic vector
+% prove that 1 is always an eigenvector of a markov matrix
+% prove that all other eigenvectors of a markov matrix are always < 1    
+\end{frame}
+
+\begin{frame}[t]\frametitle{Analysing the steady state}
+% show that the eigenvector corresponding to the eigenvalue 1 gives us the steady
+% state for the markov matrix.
 \end{frame}
 
 \end{document}
