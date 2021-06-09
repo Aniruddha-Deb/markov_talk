@@ -25,20 +25,20 @@
 \begin{frame}
 \frametitle{Stochastic vectors and stochastic matrices}
 \pause
-A \textbf{Stochastic Vector} $\mathcal{S}$ is a vector in $\mathbb{R}^n$ which satisfies the 
+A \textbf{Stochastic Vector} $\vec{a}$ is a vector in $\mathbb{R}^n$ which satisfies the 
 following conditions:
 \begin{itemize}
-	\item if $s \in \mathcal{S}$, then $0 < s < 1$
-	\item the sum of all the elements of $\mathcal{S}$ is 1
+	\item if $s \in \vec{a}$, then $0 < s < 1$
+	\item the sum of all the elements of $\vec{a}$ is 1
 \end{itemize}
 \vspace{2em}
 \pause
-A \textbf{Stochastic Matrix} (aka Markov matrix) is a matrix whose column vectors
+A \textbf{Stochastic Matrix} (aka Markov matrix) $\mathcal{S}$ is a matrix whose column vectors
 are stochastic vectors. \\
 \vspace{2em}
 \pause
 Stochastic vectors can be thought of as a form of \textbf{discrete probability distribution}: 
-given a finite number of possible states, $\mathcal{S}$ gives the probability 
+given a finite number of possible states, $\vec{a}$ gives the probability 
 of transitioning to the $i$th state.
 \end{frame}
 
@@ -82,9 +82,9 @@ A \arrow[ru, "0.6" description] \arrow[rr, "0.4" description, bend right, shift 
 \end{column}
 \begin{column}{0.7\textwidth}
 $$
-\mathcal{S}_A = \begin{bmatrix} 0 \\ 0.6 \\ 0.4 \end{bmatrix}
-\mathcal{S}_B = \begin{bmatrix} 0.5 \\ 0 \\ 0.5 \end{bmatrix}
-\mathcal{S}_C = \begin{bmatrix} 0.5 \\ 0.1 \\ 0.4 \end{bmatrix}$$
+\vec{a}_A = \begin{bmatrix} 0 \\ 0.6 \\ 0.4 \end{bmatrix}
+\vec{a}_B = \begin{bmatrix} 0.5 \\ 0 \\ 0.5 \end{bmatrix}
+\vec{a}_C = \begin{bmatrix} 0.5 \\ 0.1 \\ 0.4 \end{bmatrix}$$
 $$
 \mathcal{S} = \begin{bmatrix}
 0 & 0.5 & 0.5 \\
@@ -102,10 +102,27 @@ $n$ transitions.
 \end{frame}
 
 \begin{frame}[t]\frametitle{More on Markov Matrices}
-% prove that markov matrix x stochastic vector = stochastic vector
-% prove that 1 is always an eigenvector of a markov matrix
-% prove that all other eigenvectors of a markov matrix are always < 1    
+\begin{itemize}
+	\item A markov matrix $\mathcal{S}$ multiplied by a stochastic vector $\vec{a}$ gives a stochastic vector
+\end{itemize}
+\underline{Proof:} Consider the row vector $T = \begin{bmatrix} 1 & 1 & ... & 1 \end{bmatrix}$.
+This acts like a map from $\mathbb{R}^n \to \mathbb{R}$ defined as $T\vec{a} = a_1 + a_2 + ... + a_n$.
+For a stochastic vector $\vec{a}$, $T\vec{a} = 1$. If we apply this map on $\mathcal{S}\vec{a}$, 
+then we get 
+$$\begin{bmatrix} 1 & 1 & ... & 1 \end{bmatrix} \mathcal{S} \vec{a} = \begin{bmatrix} 1 & 1 & ... & 1 \end{bmatrix} \vec{a} = 1$$
+(Since every column vector of a stochastic matrix is a stochastic vector, 
+$T\mathcal{S} = T$) \\
+\vspace{2em}
+Hence, $\vec{a^1} = \mathcal{S}\vec{a}$ is a stochastic vector. By induction, 
+$\vec{a^n} = \mathcal{S}^n\vec{a}$ is also a stochastic vector.
 \end{frame}
+
+\begin{frame}[t]\frametitle{Eigenvalues and Eigenvectors of $\mathcal{S}$}
+\center{\color{red}Can you find an eigenvalue of $\mathcal{S}$ by inspection?}
+% prove that 1 is always an eigenvalue of a markov matrix
+% prove that all other eigenvectors of a markov matrix are always < 1  
+\end{frame}
+
 
 \begin{frame}[t]\frametitle{Analysing the steady state}
 % show that the eigenvector corresponding to the eigenvalue 1 gives us the steady
