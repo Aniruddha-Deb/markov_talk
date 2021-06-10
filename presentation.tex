@@ -63,6 +63,7 @@ function for such an automata is a stochastic matrix / markov matrix)
 A \arrow[ru, "0.6" description] \arrow[rr, "0.4" description, bend right, shift right] &                                                                                        & C \arrow[ll, "0.5" description] \arrow[lu, "0.1" description, bend right, shift right] \arrow["0.4" description, loop, distance=2em, in=315, out=45]
 \end{tikzcd}
 \end{center}
+% line on how the state of a PA is represented by a stochastic vector
 \end{frame}
 
 \begin{frame}[fragile]
@@ -114,19 +115,49 @@ $$\begin{bmatrix} 1 & 1 & ... & 1 \end{bmatrix} \mathcal{S} \vec{a} = \begin{bma
 $T\mathcal{S} = T$) \\
 \vspace{2em}
 Hence, $\vec{a^1} = \mathcal{S}\vec{a}$ is a stochastic vector. By induction, 
-$\vec{a^n} = \mathcal{S}^n\vec{a}$ is also a stochastic vector.
+$\vec{a^n} = \mathcal{S}^n\vec{a}$ is also a stochastic vector. $\blacksquare$
 \end{frame}
 
 \begin{frame}[t]\frametitle{Eigenvalues and Eigenvectors of $\mathcal{S}$}
-\center{\color{red}Can you find an eigenvalue of $\mathcal{S}$ by inspection?}
-% prove that 1 is always an eigenvalue of a markov matrix
-% prove that all other eigenvectors of a markov matrix are always < 1  
+\pause
+\begin{center}{\color{red}Can you find an eigenvalue of $\mathcal{S}$ by inspection?}\end{center}
+More verbosely, what is an eigenvalue of a matrix, all of whose columns sum to 1?
+\pause
+\begin{itemize}
+	\item 1 is an eigenvalue of every stochastic matrix $\mathcal{S}$
+\end{itemize}
+\underline{Proof:} we need to show $|\mathcal{S} - I| = 0$. Notice that since every column
+of $\mathcal{S}$ sums to 1, every column of $\mathcal{S} - I$ would sum to 0. 
+Hence $|\mathcal{S} - I| = 0$. $\blacksquare$\\
+\vspace{1em}
+% redo this! it's incorrect, as the rows don't sum to 1. Perron-Frobenius theorem
+% needed
+\begin{itemize}
+	\item All other eigenvalues of $\mathcal{S}$ are less than 1
+\end{itemize}
+\underline{Proof:} Suppose there exists $\lambda > 1$ such that $\mathcal{S}\vec{a} = \lambda \vec{a}$.
+let $a_L$ be the largest element of $\vec{a}$. Every entry in $\lambda\vec{a}$ can be written as 
+$$a_i = \sum_{j=1}^n a_j\mathcal{S}_{ij} {\color{red}<} a_L \sum_{j=1}^n \mathcal{S}_{ij} = a_L$$
+but since $\lambda a_L \in \lambda\vec{a}$ and $\lambda > 1$, we have a contradiction.
+Hence, all the eigenvalues of $\mathcal{S}$ are less than 1. $\blacksquare$
+
 \end{frame}
 
-
 \begin{frame}[t]\frametitle{Analysing the steady state}
-% show that the eigenvector corresponding to the eigenvalue 1 gives us the steady
-% state for the markov matrix.
+
+What is a steady state? When the PA reaches a state that does not change in the 
+next iteration, we call it a steady state. Using a markov matrix, we can define 
+it as:
+$$\mathcal{S}\vec{\tau} = \vec{\tau}$$
+It's easy to see that $\vec{\tau}$ is the eigenvector corresponding to the eigenvalue
+1. The question then arises 
+
+% need to do perron-frobenius theorem: reducible and irreducible markov chains,
+% proving that the eigenvalue 1 has dimension 1 for an irreducible markov chain
+% and hence an irreducible markov chain reaches a steady state.
+
+\underline{Proof:} 
+
 \end{frame}
 
 \end{document}
